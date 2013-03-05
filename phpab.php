@@ -242,6 +242,8 @@ class phpab
 		}
 		unset($tmp);
 		
+		$this->content = str_replace('</body>', '<!--A/B tests active with phpA/B ' . $this->version . '--></body>', $this->content);
+		
 		$this->content = str_replace('{' . $this->tag . ' ' . $this->test_name . ' current_varation}', $this->current_variation, $this->content);
 		
 		if($this->trial_mode != TRUE)
