@@ -74,15 +74,15 @@ class phpab
 		$try_auto = FALSE;
 		$sync = '{' . $this->tag . ' ' . $this->test_name . ' ga_sync}';
 		$async = '{' . $this->tag . ' ' . $this->test_name . ' ga_async}';
-		$sync = strpos($this->content, $sync);
-		if($sync !== FALSE)
+		$sync_pos = strpos($this->content, $sync);
+		if($sync_pos !== FALSE)
 		{
 			$this->content = str_replace($sync, 'pageTracker._setCustomVar(' . $this->ga_slot . ', "' . $this->test_name . '", "' . $this->current_variation . '", 3);', $this->content);
 		}
 		else
 		{
-			$async = strpos($this->content, $async);
-			if($async !== FALSE)
+			$async_pos = strpos($this->content, $async);
+			if($async_pos !== FALSE)
 			{
 				$this->content = str_replace($async, '_gaq.push(["_setCustomVar", ' . $this->ga_slot . ', "' . $this->test_name . '", "' . $this->current_variation . '", 3]);', $this->content);
 			}
@@ -100,7 +100,7 @@ class phpab
 				$async = preg_match('/_gaq\.push\(\[[\'\"]_trackPageview[\'\"]\]\)/', $this->content, $matches, PREG_OFFSET_CAPTURE);
 				if($async == FALSE)
 				{
-          $auto_fail = TRUE;
+                    $auto_fail = TRUE;
 					$async = FALSE;
 				}
 				else
@@ -241,8 +241,6 @@ class phpab
 			$this->content = preg_replace('/<body([^>]*?)>/i', '<body${1} class="' . $this->tag . '-' . $this->current_variation . '">', $this->content);
 		}
 		unset($tmp);
-		
-		$this->content = str_replace('</body>', '<!--A/B tests active with phpA/B ' . $this->version . '--></body>', $this->content);
 		
 		$this->content = str_replace('{' . $this->tag . ' ' . $this->test_name . ' current_varation}', $this->current_variation, $this->content);
 		
