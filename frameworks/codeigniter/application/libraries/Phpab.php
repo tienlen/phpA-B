@@ -8,7 +8,7 @@
  */
 
 require_once('phpab_abstract.php');
-class phpab extends phpab_abstract
+class Phpab extends phpab_abstract
 {
 	protected $bots;
 	protected $tag = 'phpab'; // use as prefix
