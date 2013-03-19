@@ -172,6 +172,7 @@ abstract class phpab_abstract
 			return $this->current_variation;
 		}
 		
+		// @todo get_magic_quotes_gpc() is deprecated
 		if (get_magic_quotes_gpc() == TRUE)
 		{
 			$_COOKIE[$this->tag . '-' . $this->test_name] = stripslashes($_COOKIE[$this->tag . '-' . $this->test_name]);
