@@ -17,13 +17,13 @@ class phpab extends phpab_abstract
 
 	function __construct ($n, $t = FALSE)
 	{
+		$this->CI = get_instance();
 		parent::__construct($n, $t);
 	}
 
 	public function get_bots()
 	{
-		$this->CI = get_instance();
 		$this->CI->load->library('user_agent');
-		$this->bots = $this->CI->user_agent->robots;
+		$this->bots = $this->CI->user_agent->robots();
 	}
 }
