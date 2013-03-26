@@ -15,15 +15,34 @@ class Phpab extends phpab_abstract
 	protected $ga_slot = 1;
 	protected $auto_ga = TRUE;
 
-	function __construct ($n, $t = FALSE)
+	function __construct ($params)
 	{
+		$n = NULL;
+		$t = FALSE;
+		$count = count($params);
+
+		if($count == 1 && is_array($params))
+		{
+			$n = $params[0];
+		}
+		elseif($count >= 2)
+		{
+			$n = $params[0];
+			$t = $params[1];
+		}
+
+		if(!is_string($n) || !is_bool($t))
+		{
+			throw new InvalidArgumentException('phpab library gets invalid argments');
+		}
+
 		$this->CI = get_instance();
+		$this->CI->load->library('user_agent');
 		parent::__construct($n, $t);
 	}
 
 	public function get_bots()
 	{
-		$this->CI->load->library('user_agent');
-		$this->bots = $this->CI->user_agent->robots();
+		$this->bots = $this->CI->agent->robots;
 	}
 }
