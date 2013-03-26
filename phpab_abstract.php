@@ -132,7 +132,7 @@ abstract class phpab_abstract
 	
 	public function set_domain ($d)
 	{
-		$this->test_domain = !empty($d) ? $d : '.' . $_SERVER['HTTP_HOST'];
+		$this->test_domain = !is_null($d) ? $d : '.' . $_SERVER['HTTP_HOST'];
 	}
 	
 	public function set_ga_slot ($s)
